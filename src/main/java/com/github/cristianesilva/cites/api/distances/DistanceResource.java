@@ -16,21 +16,9 @@ public class DistanceResource {
     private final DistanceService service;
     Logger log = LoggerFactory.getLogger(DistanceResource.class);
 
-    private Integer VELOCITY = 100;
-
     public DistanceResource(DistanceService service) {
         this.service = service;
     }
-
-//    public double tempo(Double city1, Double city2) {
-//         diff = service.distanceByCubeInMeters(city1, city2);
-//        tempoParaPercorrerARota = diff/VELOCITY;
-//        return tempoParaPercorrerARota;
-//    }
-
-//    public double tempo(service.distanceByCubeInMeters(city1, city2)){
-//        return tempo
-//    }
 
     @GetMapping("/by-points")
     public ResponseEntity byPoints(@RequestParam(name = "from") final Long city1,
@@ -45,4 +33,5 @@ public class DistanceResource {
         log.info("byCube");
         return ResponseEntity.ok().body(service.distanceByCubeInMeters(city1, city2));
     }
+
 }

@@ -1,11 +1,5 @@
 package com.github.cristianesilva.cites.api.distances;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
-import static java.lang.Math.toRadians;
-
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,37 +16,39 @@ public class DistanceService {
 
     private final CityRepository cityRepository;
     Logger log = LoggerFactory.getLogger(DistanceService.class);
-    private double tempoParaPercorrerARota;
 
     public DistanceService(final CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
 
 
-    public Double distanceByPointsInMiles(final Long city1, final Long city2) {
+    public Trip distanceByPointsInMiles(final Long city1, final Long city2) {
         log.info("nativePostgresInMiles({}, {})", city1, city2);
-        return cityRepository.distanceByPoints(city1, city2);
+        Double distance = cityRepository.distanceByPoints(city1,city2);
+        Double time = timeTrip(distance);
+        return new Trip(distance,time);
     }
 
-    public Double distanceByCubeInMeters(Long city1, Long city2) {
+    public Trip distanceByCubeInMeters(Long city1, Long city2) {
         log.info("distanceByCubeInMeters({}, {})", city1, city2);
         final List<City> cities = cityRepository.findAllById((Arrays.asList(city1, city2)));
 
         Point p1 = cities.get(0).getLocation();
         Point p2 = cities.get(1).getLocation();
+        Double distance = cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+        Double time = timeTrip(distance);
 
-        return cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+        return new Trip(distance,time);
 
-
-        public double time();{
-            double distancia = cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-            int VELOCITY = 100;
-            double time = (distancia / VELOCITY);
-            return time;
+    }
+        public double timeTrip(Double distance){
+            int VELOCITY = 80;
+            double time = (distance / VELOCITY);
+            return time * 60;
         }
+
     }
 
-}
 
 
 
