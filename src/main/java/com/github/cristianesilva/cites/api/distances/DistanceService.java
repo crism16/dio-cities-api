@@ -41,6 +41,7 @@ public class DistanceService {
         return new Trip(distance,time);
 
     }
+    //caluclo do tempo
         public double timeTrip(Double distance){
             int VELOCITY = 80;
             double time = (distance / VELOCITY);
