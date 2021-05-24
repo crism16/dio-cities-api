@@ -1,6 +1,5 @@
 package com.github.cristianesilva.cites.api.countries;
 
-import com.github.cristianesilva.cites.api.countries.Country;
 import com.github.cristianesilva.cites.api.countries.repository.CountryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
