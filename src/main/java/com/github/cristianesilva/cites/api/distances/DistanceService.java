@@ -22,6 +22,7 @@ public class DistanceService {
 
     private final CityRepository cityRepository;
     Logger log = LoggerFactory.getLogger(DistanceService.class);
+    private double tempoParaPercorrerARota;
 
     public DistanceService(final CityRepository cityRepository) {
         this.cityRepository = cityRepository;
@@ -41,7 +42,17 @@ public class DistanceService {
         Point p2 = cities.get(1).getLocation();
 
         return cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+
+
+        public double time();{
+            double distancia = cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+            int VELOCITY = 100;
+            double time = (distancia / VELOCITY);
+            return time;
+        }
     }
+
 }
+
 
 
