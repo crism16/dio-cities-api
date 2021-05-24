@@ -1,30 +1,37 @@
 package com.github.cristianesilva.cites.api.distances;
 
+import java.time.LocalTime;
+
 public class Trip {
     private Double distance;
-    private Double time;
+    private LocalTime LocalTime;
 
-    public Trip(Double distance, Double time){
+    public Trip(Double distance, LocalTime time) {
         this.distance = distance;
-        this.time = time;
+        this.LocalTime = time;
 
     }
 
-    public Double getDistance(){
+    public Double getDistance() {
         return distance;
 
     }
 
-    public void setDistance(Double distance){
+    public void setDistance(Double distance) {
         this.distance = distance;
 
-
-    }
-    public Double getTime(){
-        return time;
     }
 
-    public void setTime(Double time) {
-        this.time = time;
+    public LocalTime getTime() {
+        return LocalTime;
     }
-}
+
+    public void setTime(LocalTime time) {
+        this.LocalTime = time;
+    }
+
+
+    }
+
+
+

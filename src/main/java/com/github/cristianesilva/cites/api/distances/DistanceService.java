@@ -1,6 +1,7 @@
 package com.github.cristianesilva.cites.api.distances;
 
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class DistanceService {
     public Trip distanceByPointsInMiles(final Long city1, final Long city2) {
         log.info("nativePostgresInMiles({}, {})", city1, city2);
         Double distance = cityRepository.distanceByPoints(city1,city2);
-        Double time = timeTrip(distance);
+        LocalTime time = timeTrip(distance,50);
         return new Trip(distance,time);
     }
 
@@ -36,17 +37,26 @@ public class DistanceService {
         Point p1 = cities.get(0).getLocation();
         Point p2 = cities.get(1).getLocation();
         Double distance = cityRepository.distanceByCube(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-        Double time = timeTrip(distance);
+        LocalTime time = timeTrip(distance/1000, 80);
 
         return new Trip(distance,time);
 
     }
-    //caluclo do tempo
-        public double timeTrip(Double distance){
-            int VELOCITY = 80;
+        public LocalTime timeTrip(Double distance, int VELOCITY){
             double time = (distance / VELOCITY);
-            return time * 60;
+            LocalTime formattedTime = formatTime(time);
+            return formattedTime;
         }
+
+    public  LocalTime formatTime (Double time){
+
+        long millis = (long) (time * 60 * 60 * 1000);
+        int seconds = (int) (millis / 1000) % 60 ;
+        int minutes = (int) ((millis / (100060)) % 60);
+        int hours   = (int) ((millis / (100060*60)) % 24);
+
+        return LocalTime.of(hours,minutes,seconds);
+    }
 
     }
 
